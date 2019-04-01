@@ -14,8 +14,10 @@ import torchvision.utils as vutils
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', required=True, help='cifar10 | lsun | mnist |imagenet | folder | lfw | fake')
-parser.add_argument('--dataroot', required=True, help='path to dataset')
+parser.add_argument('--dataset', help='cifar10 | lsun | mnist |imagenet | folder | lfw | fake',
+                    default="mnist")
+parser.add_argument('--dataroot', help='path to dataset',
+                    default="./dataset")
 parser.add_argument('--workers', type=int, help='number of data loading workers', default=2)
 parser.add_argument('--batchSize', type=int, default=64, help='input batch size')
 parser.add_argument('--imageSize', type=int, default=64, help='the height / width of the input image to network')
@@ -29,11 +31,16 @@ parser.add_argument('--cuda', action='store_true', help='enables cuda')
 parser.add_argument('--ngpu', type=int, default=1, help='number of GPUs to use')
 parser.add_argument('--netG', default='', help="path to netG (to continue training)")
 parser.add_argument('--netD', default='', help="path to netD (to continue training)")
-parser.add_argument('--outf', default='.', help='folder to output images and model checkpoints')
+parser.add_argument('--outf', default='./output', help='folder to output images and model checkpoints')
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 
 opt = parser.parse_args()
 print(opt)
+
+try:
+    os.makedirs(opt.dataroot)
+except OSError:
+    pass
 
 try:
     os.makedirs(opt.outf)

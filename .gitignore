@@ -1,4 +1,5 @@
 dcgan/data
+cyclegan/data
 data
 *.pyc
 OpenNMT/data
